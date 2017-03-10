@@ -6,7 +6,7 @@
 //  Copyright © 2017 Gabriele Filosofi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface CSP : NSObject
 
