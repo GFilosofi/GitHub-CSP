@@ -8,7 +8,7 @@
 #include <string.h>
 #include <stdio.h>
 
-int _nmea_parse_time(const char *buff, int buff_sz, nmeaTIME *res)
+int _nmea_parse_time(const char *buff, int buff_sz, CSPTime_t *res)
 {
     int success = 0;
 
@@ -23,7 +23,7 @@ int _nmea_parse_time(const char *buff, int buff_sz, nmeaTIME *res)
     case sizeof("hhmmss.ss") - 1:
     case sizeof("hhmmss.sss") - 1:
         success = (4 == nmea_scanf(buff, buff_sz,
-            "%2d%2d%2d.%d", &(res->hour), &(res->min), &(res->sec), &(res->hsec)
+            "%2d%2d%2d.%d", &(res->hour), &(res->min), &(res->sec), 0
             ));
         break;
     default:
@@ -252,7 +252,7 @@ int nmea_parse_GPRMC(const char *buff, int buff_sz, nmeaGPRMC *pack)
         &(time_buff[0]),
         &(pack->status), &(pack->lat), &(pack->ns), &(pack->lon), &(pack->ew),
         &(pack->speed), &(pack->direction),
-        &(pack->utc.day), &(pack->utc.mon), &(pack->utc.year),
+        &(pack->utc.day), &(pack->utc.month), &(pack->utc.year),
         &(pack->declination), &(pack->declin_ew), &(pack->mode));
 
     if(nsen != 13 && nsen != 14)
@@ -269,7 +269,7 @@ int nmea_parse_GPRMC(const char *buff, int buff_sz, nmeaGPRMC *pack)
 
     if(pack->utc.year < 90)
         pack->utc.year += 100;
-    pack->utc.mon -= 1;
+    pack->utc.month -= 1;
 
     return 1;
 }
@@ -324,7 +324,7 @@ void nmea_GPGGA2info(nmeaGPGGA *pack, nmeaINFO *info)
     info->utc.hour = pack->utc.hour;
     info->utc.min = pack->utc.min;
     info->utc.sec = pack->utc.sec;
-    info->utc.hsec = pack->utc.hsec;
+//    info->utc.hsec = pack->utc.hsec;
     info->sig = pack->sig;
     info->HDOP = pack->HDOP;
     info->elv = pack->elv;

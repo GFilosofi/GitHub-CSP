@@ -7,7 +7,7 @@
 #ifndef NMEA_INFO_H
 #define NMEA_INFO_H
 
-#include "time.h"
+#include "CSPTime.h"
 
 #define NMEA_SIG_BAD        (0)
 #define NMEA_SIG_LOW        (1)
@@ -77,7 +77,7 @@ typedef struct _nmeaINFO
 {
     int     smask;      /**< Mask specifying types of packages from which data have been obtained */
 
-    nmeaTIME utc;       /**< UTC of position */
+    CSPTime_t utc;       /**< UTC of position */
 
     int     sig;        /**< GPS quality indicator (0 = Invalid; 1 = Fix; 2 = Differential, 3 = Sensitive) */
     int     fix;        /**< Operating mode, used for navigation (1 = Fix not available; 2 = 2D; 3 = 3D) */

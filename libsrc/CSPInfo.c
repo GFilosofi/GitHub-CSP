@@ -12,14 +12,17 @@
 void nmea_zero_INFO(nmeaINFO *info)
 {
     memset(info, 0, sizeof(nmeaINFO));
-    nmea_time_now(&info->utc);
+    csp_time_now(&info->utc);
     info->sig = NMEA_SIG_BAD;
     info->fix = NMEA_FIX_BAD;
 }
 
-void csp_zero_INFO(CSPInfo *info)
+/* /////////////////////////////////////// */
+
+void csp_zero_info(CSPInfo_t *info)
 {
-	memset(info, 0, sizeof(CSPInfo));
+	memset(info, 0, sizeof(CSPInfo_t));
+	csp_time_now(&info->utc);
 #if (CSP_FOR_PRODUCT == 1)
 	info->type = kCSPTypeProduct;
 #else

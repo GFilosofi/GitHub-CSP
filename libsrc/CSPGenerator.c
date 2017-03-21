@@ -172,7 +172,7 @@ int nmea_igen_noise_reset(nmeaGENERATOR *gen, nmeaINFO *info)
 
 int nmea_igen_static_loop(nmeaGENERATOR *gen, nmeaINFO *info)
 {
-    nmea_time_now(&info->utc);
+    csp_time_now(&info->utc);
     return 1;
 }
 
@@ -229,7 +229,7 @@ int nmea_igen_rotate_loop(nmeaGENERATOR *gen, nmeaINFO *info)
     double deg = 360 / (count?count:1);
     double srt = (count?(info->satinfo.sat[0].azimuth):0) + 5;
 
-    nmea_time_now(&info->utc);
+    csp_time_now(&info->utc);
 
     for(it = 0; it < count; ++it)
     {

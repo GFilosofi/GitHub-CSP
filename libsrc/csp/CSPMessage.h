@@ -78,13 +78,13 @@ typedef struct {
 
 typedef enum
 {
-	kCSPTypeProduct,
+	kCSPTypeProduct = 0,
 	kCSPTypeDevice
 } CSPType_t;
 
 typedef enum
 {
-	kCSPStateDisconnected,	/* Product or Device. Transport link not available */
+	kCSPStateDisconnected = 0,	/* Product or Device. Transport link not available */
 	kCSPStateIdle,		/* Product. No CSP task is running. The system is available to run CSP tasks */
 	kCSPStateInactive,	/* Device. The app is running in foreground but is currently not receiving events */
 	kCSPStateActive,	/* Product or Device. The CSP task (app) is running on Product (Device) */
@@ -260,7 +260,8 @@ typedef uint16_t	VER;	/* MMmm version, M:1..99, m:0..99 */
 
 #pragma pack(push,1)
 /* Table 10-2 */
-typedef struct {
+typedef struct CSPParam_st
+{
 	int	id;
 	ASC	name;
 	ASC	type;
@@ -271,21 +272,28 @@ typedef struct {
 } CSPParam_t;
 #pragma pack(pop)
 
-static CSPParam_t ergoStepParams [3] = {
-{ 18,	"N",		"U2",	"",	0,	0,	16383 },		/* Step count. Resets on REC start. Rollover at 16384 */
-{ 4097,	"Time",		"TIM",	"",	0,	0,	40000 },	/* Elapsed time from start. Resets on REC start */
-{ 17,	"Marker",	"U1",	"",	0,	0,	1 }		/*  Marker indicator */
+/* Table 10-3 */
+typedef enum {
+	kCSPMrkNo,
+	kCSPMrkYes
+} CSPMrkType_t;
 
-};
+/* Table 10-4 */
+typedef union {
+	uint16_t word;
+	struct __attribute__((__packed__)) {
+		uint16_t Rec	:1;
+		uint16_t DataType:3;
+		uint16_t Rsvd	:12;
+	}fields;
+} CSPStepInfo_t;
 
+/* Table 10-5 */
+typedef enum {
+	kCSPGpsInvalid,
+	kCSPGpsValid
+} CSPGpsSts_t;
 
-static CSPParam_t calibParams [4] = {
-{ 5120,	"GasCDat",	"DAT",	"",	0,	19700101,	21000101 },	/* UTC date of gas calibration */
-{ 5121,	"GasCTim",	"TIM",	"",	0,	0,		235959 },	/* UTC time of gas calibration */
-{ 5122,	"FlwmCDat",	"DAT",	"",	0,	19700101,	21000101 },	/* UTC date of flowmeter calibration */
-{ 5123,	"FlwmCTim",	"TIM",	"",	0,	0,		235959 }	/* UTC time of flowmeter calibration */
-
-};
 
 /* Callback function to signal a data buffer has been processed and sent out
  */

@@ -7,6 +7,7 @@
 #ifndef CSP_INFO_H
 #define CSP_INFO_H
 
+#include "CSPTime.h"
 #include "CSPConfig.h"
 #include "CSPMessage.h"
 
@@ -14,13 +15,15 @@
 extern "C" {
 #endif
 
-typedef struct CSPInfo_t {
-	int	type;			//kCSPTypeProduct or kCSPTypeDevice
-	char	manufacturer[10];	//Cosmed"or "Apple"
-	char	model[10];		//PN or SKU
-} CSPInfo;
+typedef struct CSPInfo_st {
+	int		type;			//kCSPTypeProduct or kCSPTypeDevice
+	char		manufacturer[10];	//Cosmed"or "Apple"
+	char		model[10];		//PN or SKU
+	CSPTime_t	utc;			//UTC
+	int		rssi;			//Rx signal strength
+} CSPInfo_t;
 
-void csp_zero_INFO(CSPInfo *info);
+void csp_zero_info(CSPInfo_t *info);
 
 #ifdef  __cplusplus
 }

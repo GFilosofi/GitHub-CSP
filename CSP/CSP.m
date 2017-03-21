@@ -7,21 +7,21 @@
 //
 
 #import "CSP.h"
-//#import "libsrc/csp.h"
+//#import "CSPInfo.h"
 
 @implementation CSP
 
 /* generate 10 nmea msgs from initial info */
 static int generate(void)
 {
-#if 0
-    nmeaINFO info;
+
+//    CSPInfo_t info;
     char buff[2048];
     int gen_sz;
     int it;
-    
-    nmea_zero_INFO(&info);
-    
+#if 0
+    csp_zero_INFO(&info);
+
     info.sig = 3;
     info.fix = 3;
     info.lat = 5000.0;
