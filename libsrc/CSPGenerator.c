@@ -16,7 +16,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "CSPMessage.h"
+#include "csp/CSPMessage.h"
 
 #if defined(NMEA_WIN) && defined(_MSC_VER)
 # pragma warning(disable: 4100) /* unreferenced formal parameter */
